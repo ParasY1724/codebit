@@ -8,6 +8,8 @@ import PricingSection from './components/PricingComponent'
 import TravelHomePage from './components/home'
 import DestinationsExplorer from './components/DestinationsExplorer'
 import { Search, Compass, LogIn, UserPlus } from 'lucide-react';
+import Login from './components/login'
+import Signup from './components/signup'
 
 export default function App() {
   return (
@@ -16,6 +18,8 @@ export default function App() {
       <Routes>
         <Route path='/' element={<TravelHomePage />} />
         <Route path='/blogs' element={<Blogs />}/>
+        <Route path='/login' element={<Login />}/>
+        <Route path='/signup' element={<Signup />}/>
         <Route path='/destination-details' element={<Destinations />}/>
         <Route path='/compare' element={<TravelComparison />}/>
         <Route path='/pricing' element={<PricingSection />}/>
@@ -46,11 +50,11 @@ const Navbar = () => {
         </button>
 
 
-          <button onClick={() => {navigate('/')}} className="flex items-center gap-1 font-semibold bg-gray-100 px-4 py-2 text-sm hover:bg-gray-200 rounded">
+          <button onClick={() => {navigate('/login')}} className="flex items-center gap-1 font-semibold bg-gray-100 px-4 py-2 text-sm hover:bg-gray-200 rounded">
             <LogIn className="w-4 h-4" /> Login
           </button>
            {/* Updated Sign Up button color */}
-          <button onClick={() => {navigate('/')}} className="flex items-center gap-1 font-semibold bg-teal-600 text-white px-4 py-2 text-sm hover:bg-teal-700 rounded">
+          <button onClick={() => {navigate('/signup')}} className="flex items-center gap-1 font-semibold bg-teal-600 text-white px-4 py-2 text-sm hover:bg-teal-700 rounded">
             <UserPlus className="w-4 h-4" /> Sign Up
           </button>
       </div>
