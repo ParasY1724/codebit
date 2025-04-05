@@ -1,6 +1,6 @@
-import React, { useState } from 'react'; // Import useState if you plan to make tabs interactive
+import React, { useState } from 'react';
 
-// --- SVG Icons (Basic Placeholders) ---
+// --- SVG Icons (Basic Placeholders - Teal color added where needed) ---
 
 const StarIcon = () => (
   <svg className="w-5 h-5 inline-block text-yellow-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
@@ -12,7 +12,7 @@ const DotIcon = () => (
     </svg>
 );
 
-const FilterIcon = () => (
+const FilterIcon = () => ( // Added teal color on hover potentially
     <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" /></svg>
 );
 
@@ -21,11 +21,15 @@ const AttractionsIcon = () => (
 );
 
 const FoodIcon = () => (
-     <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9" /></svg> // Basic food/restaurant icon
+     <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9" /></svg>
 );
 
 const InfoIcon = () => (
     <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+);
+
+const CloseIcon = () => (
+    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
 );
 
 
@@ -37,37 +41,131 @@ const destinationData = {
   attractions: [
     { id: 1, title: "london Central Park", description: "A beautiful green space in the heart of the city." },
     { id: 2, title: "london Historical Museum", description: "Learn about the rich history and culture." },
-    // Add more attractions if needed
+    { id: 3, title: "The london Bridge", description: "An iconic landmark offering stunning views." },
   ],
-  // Add data for food and practical info if implementing those tabs
+  foodAndDining: [
+      { id: 10, title: "The Royal Oak Pub", description: "Classic British pub fare and local ales." },
+      { id: 11, title: "Borough Market", description: "A foodie paradise with diverse street food stalls." },
+      { id: 12, title: "Dishoom Covent Garden", description: "Popular spot for delicious Bombay-style cuisine." },
+  ],
+  practicalInfo: [ // Using key-value for practical info
+      {id: 20, key: "Best Time to Visit", value: "Spring (April-May) and Fall (September-October) offer pleasant weather."},
+      {id: 21, key: "Safety Tips", value: "Stay aware of your surroundings, especially in crowded areas. Keep valuables secure."},
+      {id: 22, key: "Local Transportation", value: "Public transport (Tube, buses) is efficient and extensive. Consider an Oyster card."},
+      {id: 23, key: "Accommodation", value: "Wide range available, from budget hostels to luxury hotels. Book in advance."},
+      {id: 24, key: "Currency", value: "British Pound Sterling (GBP)."},
+  ]
 };
 
 // Tab configuration
 const contentTabs = [
     { id: 'attractions', label: 'Attractions', icon: AttractionsIcon, data: destinationData.attractions },
-    { id: 'food', label: 'Food & Dining', icon: FoodIcon, data: [] }, // Placeholder data
-    { id: 'info', label: 'Practical Info', icon: InfoIcon, data: [] },   // Placeholder data
+    { id: 'food', label: 'Food & Dining', icon: FoodIcon, data: destinationData.foodAndDining },
+    { id: 'info', label: 'Practical Info', icon: InfoIcon, data: destinationData.practicalInfo },
 ];
 
+// --- NEW: Compare Sidebar Component ---
+const CompareSidebar = ({ isOpen, onClose }) => {
+    const travelerTypes = [
+        'Solo Travelling', 'Couples Retreat', 'Family Adventure', 'Adventure & Outdoors',
+        'Luxury Experience', 'Budget Travel', 'Cultural Immersion', 'Food & Culinary',
+        'Photography Spots', 'Wellness & Relaxation'
+    ];
 
-// --- Destinations Component ---
+    // Basic state for selected checkboxes (optional, for potential future use)
+    const [selectedTypes, setSelectedTypes] = useState([]);
+
+    const handleCheckboxChange = (event) => {
+        const { value, checked } = event.target;
+        if (checked) {
+            setSelectedTypes(prev => [...prev, value]);
+        } else {
+            setSelectedTypes(prev => prev.filter(type => type !== value));
+        }
+    };
+
+    const handleCompareClick = () => {
+        console.log("Comparing experiences for:", selectedTypes);
+        // Add actual comparison logic here or pass selectedTypes back up
+        onClose(); // Close sidebar after clicking compare (optional)
+    }
+
+    return (
+        <div
+            className={`fixed top-0 right-0 h-full w-72 bg-white shadow-xl p-6 z-50 transform transition-transform duration-300 ease-in-out ${
+                isOpen ? 'translate-x-0' : 'translate-x-full'
+            }`}
+        >
+            {/* Header */}
+            <div className="flex justify-between items-center mb-6">
+                <h3 className="text-lg font-semibold text-gray-800">Select Traveler Types</h3>
+                <button
+                    onClick={onClose}
+                    className="text-gray-500 hover:text-gray-700 focus:outline-none"
+                    aria-label="Close sidebar"
+                >
+                    <CloseIcon />
+                </button>
+            </div>
+
+            {/* Checkbox List */}
+            <div className="space-y-3 mb-6 h-[calc(100%-140px)] overflow-y-auto pr-2"> {/* Adjust height and padding */}
+                {travelerTypes.map((type) => (
+                    <div key={type} className="flex items-center">
+                        <input
+                            id={`compare-${type.replace(/\s+/g, '-')}`}
+                            name="travelerTypesCompare"
+                            type="checkbox"
+                            value={type}
+                            onChange={handleCheckboxChange}
+                            checked={selectedTypes.includes(type)} // Control checked state
+                            // Updated checkbox color to teal
+                            className="h-4 w-4 text-teal-600 border-gray-300 rounded focus:ring-teal-500 focus:ring-offset-0 focus:ring-1"
+                        />
+                        <label
+                            htmlFor={`compare-${type.replace(/\s+/g, '-')}`}
+                            className="ml-3 block text-sm text-gray-700"
+                        >
+                            {type}
+                        </label>
+                    </div>
+                ))}
+            </div>
+
+             {/* Footer Button */}
+            <div className="absolute bottom-6 left-6 right-6">
+                 <button
+                   type="button"
+                   onClick={handleCompareClick}
+                   // Teal button styles
+                   className="w-full inline-flex items-center justify-center py-2.5 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+                 >
+                    Compare Experiences
+                 </button>
+            </div>
+        </div>
+    );
+};
+
+
+// --- Destinations Component (Updated) ---
 const Destinations = () => {
-  // State for active content tab (default to attractions)
   const [activeContentTab, setActiveContentTab] = useState('attractions');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // State for sidebar
 
   const ActiveIcon = contentTabs.find(tab => tab.id === activeContentTab)?.icon || (() => null);
   const activeData = contentTabs.find(tab => tab.id === activeContentTab)?.data || [];
 
-  // Active/Inactive styles for content tabs
-  const activeContentTabClass = "flex items-center px-4 py-3 bg-white text-blue-600 border border-gray-200 rounded-t-md shadow-sm font-semibold"; // Adjusted style for active tab
+  // Updated active tab style for teal
+  const activeContentTabClass = "flex items-center px-4 py-3 bg-white text-teal-600 border border-gray-200 rounded-t-md shadow-sm font-semibold";
   const inactiveContentTabClass = "flex items-center px-4 py-3 text-gray-600 hover:text-gray-800 cursor-pointer";
 
 
   return (
-    <div className="bg-gray-100 min-h-screen"> {/* Optional page background */}
+    <div className="bg-gray-100 min-h-screen">
 
-      {/* Header Section */}
-      <div className="bg-gradient-to-r from-blue-700 to-blue-500 text-white p-8 md:p-12">
+      {/* Header Section - Updated Gradient */}
+      <div className="bg-gradient-to-r from-teal-700 to-teal-500 text-white p-8 md:p-12">
         <div className="max-w-6xl mx-auto">
           <h1 className="text-4xl md:text-5xl font-bold mb-1 flex items-center">
             <DotIcon />
@@ -81,34 +179,35 @@ const Destinations = () => {
       </div>
 
       {/* Main Content Section */}
-      <div className="max-w-6xl mx-auto bg-white p-6 md:p-8 -mt-8 rounded-lg shadow-md mb-10"> {/* Negative margin to overlap header slightly */}
+      <div className="max-w-6xl mx-auto bg-white p-6 md:p-8 -mt-8 rounded-lg shadow-md mb-10">
 
         {/* About Section with Compare Button */}
-        <div className="flex justify-between items-start mb-6 flex-wrap"> {/* flex-wrap for smaller screens */}
-            <div className="mb-4 md:mb-0"> {/* Margin bottom on small screens */}
+        <div className="flex justify-between items-start mb-6 flex-wrap">
+            <div className="mb-4 md:mb-0">
                 <h2 className="text-2xl font-semibold text-gray-800 mb-2">About This Destination</h2>
                 <p className="text-gray-600 max-w-2xl">{destinationData.description}</p>
             </div>
-            <button className="inline-flex items-center px-4 py-2 border border-blue-500 text-blue-600 text-sm font-medium rounded-md hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-400 whitespace-nowrap">
+             {/* Updated Compare button style & added onClick */}
+            <button
+                onClick={() => setIsSidebarOpen(true)} // Open sidebar
+                className="inline-flex items-center px-4 py-2 border border-teal-500 text-teal-600 text-sm font-medium rounded-md hover:bg-teal-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-400 whitespace-nowrap"
+            >
                 <FilterIcon />
                 Compare Experiences
             </button>
         </div>
 
         {/* Content Tabs Navigation */}
-        {/* Use a border bottom on the container, and remove bottom border from tabs */}
         <div className="border-b border-gray-200 mb-6">
-          <nav className="flex space-x-0 sm:space-x-4 -mb-px" aria-label="Content Tabs"> {/* Adjust spacing */}
+          <nav className="flex space-x-0 sm:space-x-4 -mb-px" aria-label="Content Tabs">
             {contentTabs.map((tab) => {
                 const Icon = tab.icon;
                 return (
                     <a
                         key={tab.id}
-                        href="#" // Prevent page jump, handle with state
-                        onClick={(e) => {
-                            e.preventDefault();
-                            setActiveContentTab(tab.id);
-                        }}
+                        href="#"
+                        onClick={(e) => { e.preventDefault(); setActiveContentTab(tab.id); }}
+                        // Updated active class check
                         className={activeContentTab === tab.id ? activeContentTabClass : inactiveContentTabClass}
                     >
                         <Icon />
@@ -119,27 +218,40 @@ const Destinations = () => {
           </nav>
         </div>
 
-        {/* Content Grid Area */}
+        {/* Content Grid/List Area */}
         {activeContentTab === 'attractions' && (
              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {activeData.length > 0 ? activeData.map((item) => (
-                  // Attraction Card
                   <div key={item.id} className="border border-gray-200 rounded-lg p-4 hover:shadow-sm transition-shadow duration-200">
                     <h3 className="text-lg font-semibold text-gray-800 mb-1">{item.title}</h3>
                     <p className="text-sm text-gray-600">{item.description}</p>
                   </div>
-                )) : (
-                    <p className="text-gray-500 md:col-span-2">No attractions listed for this destination yet.</p>
-                )}
+                )) : ( <p className="text-gray-500 md:col-span-2">No attractions listed.</p> )}
              </div>
         )}
 
-        {/* Add conditional rendering for other tabs (Food & Dining, Practical Info) here */}
+        {/* Food & Dining Content */}
          {activeContentTab === 'food' && (
-             <div className="text-gray-500">Food & Dining content will be displayed here.</div>
+             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                 {activeData.length > 0 ? activeData.map((item) => (
+                   <div key={item.id} className="border border-gray-200 rounded-lg p-4 hover:shadow-sm transition-shadow duration-200">
+                     <h3 className="text-lg font-semibold text-gray-800 mb-1">{item.title}</h3>
+                     <p className="text-sm text-gray-600">{item.description}</p>
+                   </div>
+                 )) : ( <p className="text-gray-500 md:col-span-2">No dining experiences listed.</p> )}
+             </div>
          )}
+
+        {/* Practical Info Content */}
          {activeContentTab === 'info' && (
-             <div className="text-gray-500">Practical Info content will be displayed here.</div>
+             <div className="space-y-3 text-sm text-gray-700">
+                 {activeData.length > 0 ? activeData.map((item) => (
+                     <div key={item.id} className="flex">
+                         <dt className="font-semibold w-36 flex-shrink-0">{item.key}:</dt>
+                         <dd className="ml-2 text-gray-600">{item.value}</dd>
+                     </div>
+                 )) : ( <p className="text-gray-500">No practical information available.</p> )}
+             </div>
          )}
 
       </div>
@@ -148,6 +260,9 @@ const Destinations = () => {
         <footer className="text-center py-4 mt-auto">
             <p className="text-sm text-gray-500">&copy; {new Date().getFullYear()} Wanderlust Canvas. All rights reserved.</p>
         </footer>
+
+        {/* Conditionally render the Sidebar */}
+        <CompareSidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
 
     </div>
   )
