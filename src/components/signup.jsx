@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import { signupUser } from '../services/authService'; // Import the service function
 import { useNavigate } from 'react-router-dom'; // To redirect after signup
+import { toast } from 'react-toastify';
 
 
 const Signup = () => {
+
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -22,7 +26,9 @@ const Signup = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Registering:', formData);
+    localStorage.setItem('user', JSON.stringify(formData));
+    toast.success("Signed Up Successfully!");
+    navigate('/');
   };
 
   return (

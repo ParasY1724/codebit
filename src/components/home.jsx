@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 // Assuming you are using lucide-react, otherwise replace with your icon source
 import { Search, Compass, LogIn, UserPlus } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const TravelHomePage = () => {
   const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate();
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -34,7 +36,7 @@ const TravelHomePage = () => {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
             />
-            <button className="bg-teal-600 text-white px-5 py-1.5 rounded-full text-sm hover:bg-teal-700 transition duration-200">Search</button> {/* Adjusted padding/size */}
+            <button className="bg-teal-600 text-white px-5 py-1.5 rounded-full text-sm hover:bg-teal-700 transition duration-200" onClick={() => {navigate('/destination-details?q=london')}}>Search</button> {/* Adjusted padding/size */}
           </div>
         </div>
       </div>
@@ -137,7 +139,7 @@ const TravelHomePage = () => {
 
           <div className="text-center mt-8">
              {/* Updated button color */}
-            <button className="bg-teal-600 text-white px-6 py-2.5 rounded-lg text-sm hover:bg-teal-700 transition duration-200">Discover More Destinations</button>
+            <button onClick={() => {navigate('/explore')}} className="bg-teal-600 text-white px-6 py-2.5 rounded-lg text-sm hover:bg-teal-700 transition duration-200">Discover More Destinations</button>
           </div>
         </div>
 
@@ -149,7 +151,7 @@ const TravelHomePage = () => {
             <h2 className="text-xl font-bold mb-4">Ready to Start Your Journey?</h2>
             <p className="mb-6 text-teal-100">Join our travel community and get personalized recommendations for your next adventure.</p> {/* Lighter text */}
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <button className="bg-transparent border border-white text-white px-5 py-2 rounded hover:bg-white hover:text-teal-800 transition duration-200">Learn More</button>
+              <button onClick={() => {navigate('/pricing')}} className="bg-transparent border border-white text-white px-5 py-2 rounded hover:bg-white hover:text-teal-800 transition duration-200">See Pricing</button>
               {/* Updated button color */}
               <button className="bg-teal-600 text-white px-5 py-2 rounded hover:bg-teal-700 transition duration-200">Sign Up Now</button>
             </div>

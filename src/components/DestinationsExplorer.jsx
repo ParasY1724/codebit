@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const DestinationsExplorer = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -6,16 +7,16 @@ const DestinationsExplorer = () => {
   const [activeRegion, setActiveRegion] = useState('All');
   const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState([]);
-
+  const navigate = useNavigate();
   // Sample destinations data
   const allDestinations = [
     {
       id: 1,
-      name: 'Bali, Indonesia',
+      name: 'London',
       category: ['Beaches', 'Culture'],
       region: 'Asia',
       rating: 4.8,
-      image: "/api/placeholder/400/300",
+      image: "/img1.jpeg",
       description: 'Lush landscapes, pristine beaches, and rich cultural heritage.'
     },
     {
@@ -24,7 +25,7 @@ const DestinationsExplorer = () => {
       category: ['Beaches'],
       region: 'Europe',
       rating: 4.9,
-      image: "/api/placeholder/400/300",
+      image: "/img2.jpeg",
       description: 'Stunning sunsets, whitewashed buildings, and crystal-clear waters.'
     },
     {
@@ -33,7 +34,7 @@ const DestinationsExplorer = () => {
       category: ['Culture'],
       region: 'Asia',
       rating: 4.7,
-      image: "/api/placeholder/400/300",
+      image: "/img3.jpeg",
       description: 'Ancient temples, traditional gardens, and authentic Japanese culture.'
     },
     {
@@ -42,7 +43,7 @@ const DestinationsExplorer = () => {
       category: ['Cities', 'Culture'],
       region: 'Europe',
       rating: 4.6,
-      image: "/api/placeholder/400/300",
+      image: "/img4.jpeg",
       description: 'Iconic landmarks, world-class cuisine, and romantic atmosphere.'
     },
     {
@@ -51,7 +52,7 @@ const DestinationsExplorer = () => {
       category: ['Adventure', 'Culture'],
       region: 'Americas',
       rating: 4.9,
-      image: "/api/placeholder/400/300",
+      image: "/img7.jpeg",
       description: 'Ancient Incan citadel set amidst breathtaking mountain scenery.'
     },
     {
@@ -60,7 +61,7 @@ const DestinationsExplorer = () => {
       category: ['Cities'],
       region: 'Americas',
       rating: 4.7,
-      image: "/api/placeholder/400/300",
+      image: "/img6.jpg",
       description: 'Iconic skyline, diverse neighborhoods, and endless entertainment.'
     },
     {
@@ -69,7 +70,7 @@ const DestinationsExplorer = () => {
       category: ['Adventure', 'Beaches'],
       region: 'Africa',
       rating: 4.6,
-      image: "/api/placeholder/400/300",
+      image: "/img1.jpeg",
       description: 'Stunning landscapes, vibrant culture, and diverse wildlife.'
     },
     {
@@ -78,7 +79,7 @@ const DestinationsExplorer = () => {
       category: ['Cities', 'Culture'],
       region: 'Europe',
       rating: 4.5,
-      image: "/api/placeholder/400/300",
+      image: "/img2.jpeg",
       description: 'Romantic canals, historic architecture, and unique character.'
     },
     {
@@ -87,7 +88,7 @@ const DestinationsExplorer = () => {
       category: ['Beaches', 'Cities'],
       region: 'Oceania',
       rating: 4.8,
-      image: "/api/placeholder/400/300",
+      image: "/img4.jpeg",
       description: 'Iconic Opera House, beautiful beaches, and vibrant city life.'
     },
     {
@@ -96,7 +97,7 @@ const DestinationsExplorer = () => {
       category: ['Beaches', 'Adventure'],
       region: 'Americas',
       rating: 4.7,
-      image: "/api/placeholder/400/300",
+      image: "/img4.jpeg",
       description: 'Famous beaches like Copacabana and Ipanema, and the iconic Christ the Redeemer.'
     },
     {
@@ -105,7 +106,7 @@ const DestinationsExplorer = () => {
       category: ['Culture', 'History'],
       region: 'Africa',
       rating: 4.5,
-      image: "/api/placeholder/400/300",
+      image: "/img2.jpeg",
       description: 'Home to the ancient pyramids of Giza and the Sphinx.'
     },
     {
@@ -114,7 +115,7 @@ const DestinationsExplorer = () => {
       category: ['Cities', 'Culture'],
       region: 'Europe',
       rating: 4.6,
-      image: "/api/placeholder/400/300",
+      image: "/img6.jpg",
       description: 'Beautiful canals, historic houses, and world-class museums.'
     }
   ];
@@ -265,8 +266,8 @@ const DestinationsExplorer = () => {
           {/* Destination cards grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {currentDestinations.map(destination => (
-              <div key={destination.id} className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300">
-                <div className="relative">
+              <div key={destination.id} className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300" >
+                <div className="relative" onClick={()=>{navigate('/destination-details')}}>
                   <img
                     src={destination.image}
                     alt={destination.name}

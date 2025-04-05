@@ -1,12 +1,23 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const user = JSON.parse(localStorage.getItem('user'));
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if(user.email == email && user.password == password){
+      toast.success("Login Success!");
+      navigate('/');
+    }
+    else{
+      toast.error("Invalid Credentials");
+    }
     console.log(isLogin ? 'Logging in' : 'Registering', { email, password });
   };
 

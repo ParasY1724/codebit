@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // --- SVG Icons (Basic Placeholders - Teal color added where needed) ---
 
@@ -66,6 +67,8 @@ const contentTabs = [
 
 // --- NEW: Compare Sidebar Component ---
 const CompareSidebar = ({ isOpen, onClose }) => {
+    const navigate = useNavigate();
+
     const travelerTypes = [
         'Solo Travelling', 'Couples Retreat', 'Family Adventure', 'Adventure & Outdoors',
         'Luxury Experience', 'Budget Travel', 'Cultural Immersion', 'Food & Culinary',
@@ -88,6 +91,7 @@ const CompareSidebar = ({ isOpen, onClose }) => {
         console.log("Comparing experiences for:", selectedTypes);
         // Add actual comparison logic here or pass selectedTypes back up
         onClose(); // Close sidebar after clicking compare (optional)
+        navigate('/compare')
     }
 
     return (

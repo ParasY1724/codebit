@@ -1,4 +1,6 @@
 import React, { useState, useRef } from 'react'; // Added useRef for file input
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 // --- Helper: Generate unique ID ---
 const generateId = () => `item-${Date.now()}-${Math.random().toString(16).slice(2)}`;
@@ -249,15 +251,16 @@ function TravelBlogForm() {
   const travelerTypes = ['Solo Traveler', 'Solo Female Traveler', 'Budget Traveler', 'Family Trip', 'Couple / Honeymoon', 'Adventure Seeker', 'Cultural Explorer', 'Luxury Experience', ];
   const ActiveComponent = tabs.find(tab => tab.id === activeTab)?.component;
   const changeTab = (newTabId) => { if (tabs.some(tab => tab.id === newTabId)) { setActiveTab(newTabId); } }
+  const navigate = useNavigate();
 
   const handleFinalPreview = () => {
-      alert("Preview Final Blog Action!");
+      // alert("Preview Final Blog Action!");
       // Logic to collect all data and show final preview
   }
 
   const handlePublish = () => {
-       alert("Publish Blog Action!");
-       // Logic to collect all data, validate, and submit/publish
+      toast.success("Blog Published!!");
+      navigate('/');
   }
 
   return (
