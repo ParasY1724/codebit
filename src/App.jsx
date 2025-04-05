@@ -6,6 +6,7 @@ export default function App() {
   return (
     <>
       <Routes>
+        <Route path='/' element={<>hello</>} />
         <Route path='/blogs' element={<Blogs />}/>
       </Routes>
     </>
